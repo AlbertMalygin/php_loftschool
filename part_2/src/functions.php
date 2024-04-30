@@ -9,12 +9,9 @@ function task1($arr, $return = false){
     }
 };
 
-function task2() {
-    $args = func_get_args();
+function task2($op, ...$args) {
 
-    $oper = array_shift($args);
-
-    switch ($oper) {
+    switch ($op) {
         case '+':
             return array_sum($args);
         case '-':
@@ -37,23 +34,25 @@ function task2() {
 };
 
 function task3($arg1, $arg2){
-    if (is_int($arg1) && is_int($arg2)) {
-        echo '<table border=".5" style="text-align: center; font-size: 1rem">';
 
-        for ($i = 1; $i <= $arg1; $i++) {
-            echo '<tr>';
+    if (!is_int($arg1) || !is_int($arg2)) {
+        echo '<strong style="color:red">WARNING!</strong> Для корректной работы функции нужны 2 целых числа';
+        return;
+    }
+    
+    echo '<table border=".5" style="text-align: center; font-size: 1rem">';
 
-            for ($j = 1; $j <= $arg2; $j++) {
-                echo '<td style="width: 2.5rem; height: 2.5rem">' . ($i * $j) . '</td>';
-            }
+    for ($i = 1; $i <= $arg1; $i++) {
+        echo '<tr>';
 
-            echo '</tr>';
+        for ($j = 1; $j <= $arg2; $j++) {
+            echo '<td style="width: 2.5rem; height: 2.5rem">' . ($i * $j) . '</td>';
         }
 
-        echo '</table>';
-    } else {
-        echo '<strong style="color:red">WARNING!</strong> Для корректной работы функции нужны 2 целых числа';
+        echo '</tr>';
     }
+
+    echo '</table>';
 };
 
 function task4(){
@@ -67,15 +66,7 @@ function task5($str, $search, $replace) {
 };
 
 function task6($file) {
-    $fp = fopen($file,'r');
-    if(!$fp) {
-        return false;
-    }
-
-    $line = '';
-    while (!feof($fp)) {
-        $line .= fgets($fp);
-    }
+    $line = file_get_contents($file);
 
     echo $line . '</br>';
 };
